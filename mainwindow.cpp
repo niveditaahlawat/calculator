@@ -46,7 +46,7 @@ void MainWindow::digit_pressed()
     labelNumber = (ui->label_display->text()+button->text()).toDouble();
 
     // QString has a static method called number()
-    newLabel = QString::number(labelNumber);
+    newLabel = QString::number(labelNumber, 'g', 15);
 
 
     ui->label_display->setText(newLabel);
