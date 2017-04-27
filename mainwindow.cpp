@@ -3,6 +3,7 @@
 
 // global constant
 double firstNum = 0.0;
+bool userTypingSecondNum = false;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -53,10 +54,12 @@ void MainWindow::digit_pressed()
     double labelNumber;
     QString newLabel;
 
-    if(ui->pushButton_plus->isChecked() || ui->pushButton_minus->isChecked() ||
-            ui->pushButton_multiply->isChecked() || ui->pushButton_divide->isChecked()) {
+    if((ui->pushButton_plus->isChecked() || ui->pushButton_minus->isChecked() ||
+            ui->pushButton_multiply->isChecked() || ui->pushButton_divide->isChecked()) && (!userTypingSecondNum))
+    {
         // do not append new digit to old digit
         labelNumber = button->text().toDouble();
+        userTypingSecondNum = true;
     }
     else {
         // concatenate strings and then convert to double
@@ -150,6 +153,7 @@ void MainWindow::on_pushButton_equals_released()
         // divide button is no longer selected
         ui->pushButton_divide->setChecked(false);
     }
+    userTypingSecondNum = false;
 }
 
 void MainWindow::binary_operator_pressed()
