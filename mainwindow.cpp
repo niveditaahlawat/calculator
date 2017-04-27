@@ -172,5 +172,4 @@ void MainWindow::binary_operator_pressed()
 
     firstNum = ui->label_display->text().toDouble();
     button->setChecked(true);
-
 }
