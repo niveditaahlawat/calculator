@@ -80,14 +80,9 @@ void MainWindow::digit_pressed()
 void MainWindow::on_pushButton_decimal_released()
 {
     // append . to text in label_display if . is not already present
-    bool dec_present = false;
-    // ui->label_display->text().contains('.')
-    for (auto &x : ui->label_display->text()) {
-        if (x == ".")
-            dec_present = true;
-    }
-    if (!dec_present)
+    if(!(ui->label_display->text().contains('.'))) {
         ui->label_display->setText(ui->label_display->text() + ".");
+    }
 }
 
 void MainWindow::unary_operator_pressed()
