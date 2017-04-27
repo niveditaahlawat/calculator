@@ -38,5 +38,16 @@ void MainWindow::digit_pressed()
     // returns a pointer to a QObject (in this case, a QPushButton)
     // cast the result of sender() to QPushButton*
     QPushButton *button = (QPushButton*)sender();
-    ui->label_display->setText(button->text());
+
+    double labelNumber;
+    QString newLabel;
+
+    // concatenate strings and then convert to double
+    labelNumber = (ui->label_display->text()+button->text()).toDouble();
+
+    // QString has a static method called number()
+    newLabel = QString::number(labelNumber);
+
+
+    ui->label_display->setText(newLabel);
 }
