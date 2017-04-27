@@ -51,3 +51,15 @@ void MainWindow::digit_pressed()
 
     ui->label_display->setText(newLabel);
 }
+
+void MainWindow::on_pushButton_decimal_released()
+{
+    // append . to text in label_display if . is not already present
+    bool dec_present = false;
+    for (auto &x : ui->label_display->text()) {
+        if (x == ".")
+            dec_present = true;
+    }
+    if (!dec_present)
+        ui->label_display->setText(ui->label_display->text() + ".");
+}
