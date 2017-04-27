@@ -17,6 +17,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+// slots execute when signals are admitted
+private slots:
+    void digit_pressed();
 };
 
 #endif // MAINWINDOW_H
