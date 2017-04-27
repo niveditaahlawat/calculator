@@ -7,8 +7,7 @@ bool userTypingSecondNum = false;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
-  // ui is a pointer to the user interface
+    ui(new Ui::MainWindow)  // ui is a pointer to the user interface
 {
     ui->setupUi(this);
     // when the button is released, it will emit a signal
@@ -60,16 +59,21 @@ void MainWindow::digit_pressed()
         // do not append new digit to old digit
         labelNumber = button->text().toDouble();
         userTypingSecondNum = true;
+        // QString has a static method called number()
+        newLabel = QString::number(labelNumber, 'g', 15);
     }
     else {
-        // concatenate strings and then convert to double
-        // append the new digit to the old digit
-        labelNumber = (ui->label_display->text() + button->text()).toDouble();
+        if(ui->label_display->text().contains('.') && button->text() == "0") {
+            // append the new digit to the old digit without converting it to type double
+            newLabel = ui->label_display->text() + button->text();
+        }
+        else {
+            // append the new digit to the old digit and convert to double
+            labelNumber = (ui->label_display->text() + button->text()).toDouble();
+            // convert double back to QString
+            newLabel = QString::number(labelNumber, 'g', 15);
+        }
     }
-
-    // QString has a static method called number()
-    newLabel = QString::number(labelNumber, 'g', 15);
-
     ui->label_display->setText(newLabel);
 }
 
@@ -77,6 +81,7 @@ void MainWindow::on_pushButton_decimal_released()
 {
     // append . to text in label_display if . is not already present
     bool dec_present = false;
+    // ui->label_display->text().contains('.')
     for (auto &x : ui->label_display->text()) {
         if (x == ".")
             dec_present = true;
