@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-//#include <QDebug>
 
 // global constant
 double firstNum = 0.0;
@@ -47,10 +46,6 @@ void MainWindow::digit_pressed()
 {
     // associate button pressed with digit_pressed
 
-    // qDebug is a replacement for cout
-    // qDebug() << "test";
-
-
     // returns a pointer to a QObject (in this case, a QPushButton)
     // cast the result of sender() to QPushButton*
     QPushButton *button = (QPushButton*)sender();
@@ -58,12 +53,19 @@ void MainWindow::digit_pressed()
     double labelNumber;
     QString newLabel;
 
-    // concatenate strings and then convert to double
-    labelNumber = (ui->label_display->text()+button->text()).toDouble();
+    if(ui->pushButton_plus->isChecked() || ui->pushButton_minus->isChecked() ||
+            ui->pushButton_multiply->isChecked() || ui->pushButton_divide->isChecked()) {
+        // do not append new digit to old digit
+        labelNumber = button->text().toDouble();
+    }
+    else {
+        // concatenate strings and then convert to double
+        // append the new digit to the old digit
+        labelNumber = (ui->label_display->text() + button->text()).toDouble();
+    }
 
     // QString has a static method called number()
     newLabel = QString::number(labelNumber, 'g', 15);
-
 
     ui->label_display->setText(newLabel);
 }
@@ -121,7 +123,7 @@ void MainWindow::on_pushButton_equals_released()
         labelNumber = firstNum + secondNum;
         newLabel = QString::number(labelNumber, 'g', 15);
         ui->label_display->setText(newLabel);
-       // plus button is no longer selected
+        // plus button is no longer selected
         ui->pushButton_plus->setChecked(false);
     }
     else if (ui->pushButton_minus->isChecked())
