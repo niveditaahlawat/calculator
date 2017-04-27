@@ -111,7 +111,16 @@ void MainWindow::unary_operator_pressed()
 
 void MainWindow::on_pushButton_clear_released()
 {
-
+    // clear everything
+    // set checked bools to false
+    ui->pushButton_plus->setChecked(false);
+    ui->pushButton_minus->setChecked(false);
+    ui->pushButton_multiply->setChecked(false);
+    ui->pushButton_divide->setChecked(false);
+    // user has not yet typed second number
+    userTypingSecondNum = false;
+    // reset display to 0
+    ui->label_display->setText("0");
 }
 
 void MainWindow::on_pushButton_equals_released()
